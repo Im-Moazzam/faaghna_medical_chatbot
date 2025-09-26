@@ -14,7 +14,7 @@ st.title("Medical Billing Chatbot")
 
 # Load and split document
 DOC_PATH = os.path.join("data", "Medical Billing Info Doc.docx")
-INDEX_PATH = os.path.join("vectorstore", "Medical_Billing_FAISS.index")
+INDEX_PATH = os.path.join("vectorstore", "Medical_Billing_FAISS")
 
 if not os.path.exists(INDEX_PATH):
     split_docs = load_and_split_docx(DOC_PATH)
@@ -26,7 +26,10 @@ else:
     vector_store = load_vectorstore(INDEX_PATH, embeddings)
 
 retriever = vector_store.as_retriever(search_kwargs={"k":5})
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
+llm = ChatOpenAI(model="gpt-4o-mini", 
+                 temperature=0, 
+                 api_key=os.getenv("OPENAI_API_KEY"),
+                 streaming = True)
 
 user_query = st.text_input("Ask a question:")
 if user_query:
