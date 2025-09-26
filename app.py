@@ -6,7 +6,7 @@ from langchain_community.vectorstores import FAISS
 from src.loaders import load_and_split_docx
 from src.embeddings import get_embeddings
 from src.vectorstore_utils import save_vectorstore, load_vectorstore
-from src.chain import get_conv_chain, chat
+from src.chain import chat
 
 load_dotenv()
 
@@ -27,11 +27,10 @@ else:
 
 retriever = vector_store.as_retriever(search_kwargs={"k":5})
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
-conv_chain = get_conv_chain(llm, retriever)
 
 user_query = st.text_input("Ask a question:")
 if user_query:
-    answer, source_docs = chat(conv_chain, user_query, llm, retriever)
+    answer, source_docs = chat(user_query, llm, retriever)
     st.markdown(f"**AI 🤖:** {answer}")
     st.markdown("---")
     st.markdown("**Source Documents:**")
