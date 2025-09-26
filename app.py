@@ -11,7 +11,7 @@ from src.chain import chat
 
 load_dotenv()
 
-st.title("Medical Billing Chatbot")
+st.title("Fa'Aghna Chatbot")
 
 # Load and split document
 DOC_PATH = os.path.join("data", "Medical Billing Info Doc.docx")
