@@ -1,0 +1,8 @@
+streamlit
+langchain
+langchain-openai
+langchain-community
+dotenv
+docx2txt
+sentence-transformers
+faiss-cpu
